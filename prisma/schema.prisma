@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String @id @default(uuid())
+  fullName String
+  email    String @unique
+  password String
+
+  trips Trips[]
+}
+
+model Trips {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  startDate   String
+  endDate     String
+  createdAt   DateTime @default(now())
+  userId      String
+  user        Users    @relation(fields: [userId], references: [id])
+
+  routes  Routes[]
+  Folders Folders[]
+}
+
+model Routes {
+  id            String   @id @default(uuid())
+  title         String
+  startLocation String
+  endLocation   String
+  departureTime String
+  arrivalTime   String
+  createdAt     DateTime @default(now())
+  tripId        String
+  trip          Trips    @relation(fields: [tripId], references: [id])
+}
+
+model Files {
+  id        String   @id @default(uuid())
+  title     String
+  filePath  String
+  mimetype  String
+  encoding  String
+  createdAt DateTime @default(now())
+  folderId  String
+
+  folder Folders @relation(fields: [folderId], references: [id])
+}
+
+model Folders {
+  id             String   @id @default(uuid())
+  title          String
+  tripId         String
+  parentFolderId String?
+  createdAt      DateTime @default(now())
+
+  trip         Trips?    @relation(fields: [tripId], references: [id])
+  parentFolder Folders?  @relation("Subfolders", fields: [parentFolderId], references: [id])
+  subfolders   Folders[] @relation("Subfolders")
+  Files        Files[]
+}
