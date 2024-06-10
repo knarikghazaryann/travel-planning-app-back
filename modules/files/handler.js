@@ -13,7 +13,7 @@ export default class FileHandler {
         return this.service.delete(id)
     }
 
-    getAll() {
-        return this.service.getAll()
+    getAll(folderId) {
+        return this.service.getAll(folderId)
     }
 }

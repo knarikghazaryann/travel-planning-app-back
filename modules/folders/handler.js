@@ -17,8 +17,8 @@ export default class FolderHandler {
         return this.service.delete(id)
     }
 
-    getAll() {
-        return this.service.getAll()
+    getAll(tripId) {
+        return this.service.getAll(tripId)
     }
 
     findOne(id) {

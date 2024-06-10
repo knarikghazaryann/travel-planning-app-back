@@ -4,8 +4,8 @@ export default class FolderService {
         this.folders = PrismaSingleton.folders
     }
 
-    getAll() {
-        return this.folders.findMany()
+    getAll(tripId) {
+        return this.folders.findMany({where: {tripId}, orderBy: {createdAt: 'desc'}})
     }
 
     findOne(id) {

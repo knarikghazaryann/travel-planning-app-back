@@ -32,7 +32,7 @@ export default class FileService {
         return this.file.delete({where: {id}})
     }
 
-    getAll() {
-        return this.file.findMany()
+    getAll(folderId) {
+        return this.file.findMany({where: {folderId}})
     }
 }

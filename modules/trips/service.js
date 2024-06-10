@@ -23,7 +23,7 @@ export default class TripService {
         return this.trips.findUnique({where: {id}})
     }
 
-    async getAll() {
-        return this.trips.findMany()
+    async getAll(id) {
+        return this.trips.findMany({where: {userId: id}})
     }
 }

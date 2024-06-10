@@ -6,8 +6,8 @@ export default class RouteService {
         this.routes = PrismaSingleton.routes
     }
 
-    getAll() {
-        return this.routes.findMany()
+    getAll(tripId) {
+        return this.routes.findMany({where: {tripId}, orderBy: {createdAt: 'asc'}})
     }
 
     findOne(id) {

@@ -5,8 +5,8 @@ export default class RouteHandler {
         this.service = new RouteService()
     }
 
-    getAll() {
-        return this.service.getAll()
+    getAll(tripId) {
+        return this.service.getAll(tripId)
     }
 
     findOne(id) {

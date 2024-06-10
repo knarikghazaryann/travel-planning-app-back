@@ -5,8 +5,8 @@ export default class TripHandler {
         this.service = new TripService()
     }
 
-    getAll() {
-        return this.service.getAll()
+    getAll(id) {
+        return this.service.getAll(id)
     }
 
     findOne(id) {

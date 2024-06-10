@@ -32,14 +32,12 @@ model Trips {
 
 model Routes {
   id            String   @id @default(uuid())
-  title         String
-  startLocation String
-  endLocation   String
+  location String
   departureTime String
   arrivalTime   String
   createdAt     DateTime @default(now())
   tripId        String
-  trip          Trips    @relation(fields: [tripId], references: [id])
+  trip          Trips    @relation(fields: [tripId], references: [id], onDelete: Cascade)
 }
 
 model Files {
@@ -51,7 +49,7 @@ model Files {
   createdAt DateTime @default(now())
   folderId  String
 
-  folder Folders @relation(fields: [folderId], references: [id])
+  folder Folders @relation(fields: [folderId], references: [id], onDelete: Cascade)
 }
 
 model Folders {
@@ -61,7 +59,7 @@ model Folders {
   parentFolderId String?
   createdAt      DateTime @default(now())
 
-  trip         Trips?    @relation(fields: [tripId], references: [id])
+  trip         Trips?    @relation(fields: [tripId], references: [id], onDelete: Cascade)
   parentFolder Folders?  @relation("Subfolders", fields: [parentFolderId], references: [id])
   subfolders   Folders[] @relation("Subfolders")
   Files        Files[]

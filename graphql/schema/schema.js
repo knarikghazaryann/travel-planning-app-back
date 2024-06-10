@@ -63,32 +63,28 @@ const schema = buildSchema(`
     
     type Route {
         id: ID!
-        title: String!
-        startLocation: String!
-        endLocation: String!
+        location: String!
         departureTime: String!
         arrivalTime: String!
         trip: Trip!
+        createdAt: String!
     }
     
     input RouteInput {
-        title: String!
-        startLocation: String!
-        endLocation: String!
+        location: String!
         departureTime: String!
         arrivalTime: String! 
         tripId: ID!
     }
     
     input RouteUpdateInput {
-        title: String
-        startLocation: String
-        endLocation: String
+        location: String
         departureTime: String
         arrivalTime: String
     }
     
     type File {
+        id: ID!
         title: String!
         filePath: String!
         mimetype: String!
@@ -102,7 +98,7 @@ const schema = buildSchema(`
         parentFolderId: ID
         subfolders: [Folder!]
         trip: Trip!
-        files: [File!]!
+        files: [File!]
     }
     
     input FolderInput {
@@ -121,15 +117,15 @@ const schema = buildSchema(`
         users: [User!]
         
         trip(id: ID!): Trip
-        trips: [Trip!]
+        trips(userId: ID!): [Trip!]
         
         route(id: ID!): Route
-        routes: [Route!]
+        routes(tripId: ID!): [Route!]
         
-        files: [File!]
+        files(folderId: ID!): [File!]
         
         folder(id: ID!): Folder
-        folders: [Folder!]
+        folders(tripId: ID!): [Folder!]
     }
     
     type Mutation {
